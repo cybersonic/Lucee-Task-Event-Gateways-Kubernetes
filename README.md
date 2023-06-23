@@ -1,12 +1,12 @@
-# Lucee Task Event Gatways and Kubernetes 
+# Lucee Task Event Gateways and Kubernetes 
 
-Presentation demo code repository.
+This repository has a demo of using [Lucee's Task Event Gateways (TEG)](https://github.com/lucee/task-event-gateway) in Kubernetes. 
 
----
-You can run the following:
-1. Task Event Gateway Demo in Docker Compose
-1. Nginx Service Demo in Kubernets
-1. Task Event Gateway Demo in Kubernetes
+It shows how you can run the following:
+ - Task Event Gateway Demo in Docker Compose
+ - How to start and Minikube for scaling
+ - How to deploy an example Nginx service in Kubernetes
+ - How to deploy the Task Event Gateway Demo in Kubernetes
 
 ## Running the Task Event Gateway Demo in Docker Compose
 ```
@@ -16,6 +16,11 @@ This builds the lucee docker image and copies the config in from `config/lucee-w
 You can access the demo at http://localhost:9999
 ![Demo View](assets/compose_demo.png)
 
+
+To see the command line output fom the task serve you can run the following:
+```
+docker logs -f app
+```
 
 ## Running Minikube 
 You can start and configure minikube by running the following:
@@ -95,6 +100,19 @@ kubectl get hpa
 # open the page to our app
 minikube service tasks-server
 ```
+The last command (`minikube service tasks-server`) will open the app in your browser.
 
+![Demo View](assets/tasks_demo.png)
+
+You can add a large number of tasks and see the HPA scale up the number of pods.
+To view this you can watch the horizontal pod autoscaler (hpa) with the following command:
+```
+kubectl get hpa -w
+```
+![Demo View](assets/hpa_demo.png)
+
+If you have any questions or comments, you can contact me on twitter [@markdrew](https://twitter.com/markdrew). 
+
+If you find any issues, please open a ticket here. 
 
 
