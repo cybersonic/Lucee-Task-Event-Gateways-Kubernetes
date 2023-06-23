@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tasks-server
+spec:
+  replicas: 1
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: tasks-server
+  template:
+    metadata:
+      labels:
+        app: tasks-server
+    spec:
+      # serviceAccountName: tasks-serviceaccount
+      containers:
+      - name: tasks-server
+        image: distrokid/teg-demo:latest
+        imagePullPolicy: Never
+        env:
+          - name: ENV
+            value: local
+          - name: APP
+            value: tasks-server
+          - name: MACHINE_NAME
+            value: tasks-server
+            
+        resources:
+          limits:
+            memory: 2Gi
+            cpu: "1"
+          requests:
+            memory: "1Gi"
+            cpu: "200m"
+        ports:
+        - containerPort: 8888
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tasks-server
+spec:
+  selector:
+    app: tasks-server
+  type: NodePort
+  ports:
+  - port: 8888
+    targetPort: 8888
