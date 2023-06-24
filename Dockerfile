@@ -1,4 +1,4 @@
-FROM lucee/lucee:latest
+FROM lucee/lucee:6.0.0.477-SNAPSHOT-light
 # Set a default password. You can override this with --build-arg password=yourpassword
 ARG password="password"
 # We need these env variables to be set to connect to the redis server
@@ -11,10 +11,11 @@ ADD https://ext.lucee.org/redis.extension-3.0.0.48.lex /opt/lucee/server/lucee-s
 ADD https://ext.lucee.org/lucee.tasks.extension-1.0.0.1.lex /opt/lucee/server/lucee-server/deploy/
 
 # Copy the lucee config file. It has a cache and task event gateway setup
-COPY ./config/lucee-web.xml.cfm /opt/lucee/web/lucee-web.xml.cfm
+# COPY ./config/lucee-web.xml.cfm /opt/lucee/web/lucee-web.xml.cfm
+COPY  config/web/.CFConfig.json /opt/lucee/web/.CFConfig.json
 # Warm up the server
 RUN LUCEE_ENABLE_WARMUP=true catalina.sh run
 # Copy to the webroot
 COPY ./www /var/www
-# 
+# Add the password to the context
 RUN echo $password > /opt/lucee/server/lucee-server/context/password.txt

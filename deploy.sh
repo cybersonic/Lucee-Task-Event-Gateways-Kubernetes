@@ -10,7 +10,7 @@ echo "Starting to load ${label} into minikube"
 minikube image load ${label}
 
 echo "Starting to load distrokid/teg-demo:latest into minikube"
-minikube image load distrokid/teg-demo:latest
+minikube image tag ${label} distrokid/teg-demo:latest
 
 echo "Making sure we have the metrics-server addon enabled"
 # Enable metrics server for scaling

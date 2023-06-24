@@ -1,0 +1,25 @@
+{
+  
+  
+   "caches": {
+    "redisqueue": {
+      "class": "lucee.extension.io.cache.redis.simple.RedisCache",
+      "custom": "secretKey=&minIdle=0&maxTotal=24&secretName=&maxIdle=8&maxLowPriority=0&host={env:REDIS_SERVER_LOCAL_SERVICE_HOST}&accessKeyId=&idleTimeout=300000&password=&liveTimeout=3600000&region=&port=6379&timeToLiveSeconds=0&socketTimeout=2000&username=&connectionTimeout=5000",
+      "readOnly": "false",
+      "storage": "false"
+    }
+  },
+  "gateways": {
+    "taskrunners": {
+      "cfcPath": "org.lucee.cfml.TasksGateway",
+      "listenerCFCPath": "",
+      "startupMode": "automatic",
+      "custom": "checkForChangeNoMatchInterval=60&logName=application&templatePath=taskrunners_cfml&checkForChangeInterval=10&package=taskrunners",
+      "readOnly": "false"
+    }
+  },
+  "dotNotationUpperCase": false,
+  "suppressWhitespaceBeforeArgument": true,
+  "nullSupport": "true",
+  "listenerType": "modern"
+}
